@@ -23,6 +23,15 @@ Route::group(['prefix' => 'v1/admin', 'namespace' => 'Admin', 'middleware'=>'jso
     Route::get('/user-listing', 'UserController@userListing');
 });
 
+Route::group(['prefix' => 'v1', 'namespace' => 'Admin', 'middleware'=>'json.response'], function (){ 
+	Route::get('/brands', 'BrandController@getBrands');
+	Route::post('/brand/create', 'BrandController@create');
+	Route::put('/brand/{uuid}', 'BrandController@edit');
+	Route::delete('/brand/{uuid}', 'BrandController@delete');
+	Route::get('/brand/{uuid}', 'BrandController@getBrand');
+
+});
+
 Route::group(['prefix' => 'v1/user', 'namespace' => 'User', 'middleware'=>'json.response'], function (){ 
     Route::post('/login', 'AuthController@login');
     Route::get('/logout', 'AuthController@logout');

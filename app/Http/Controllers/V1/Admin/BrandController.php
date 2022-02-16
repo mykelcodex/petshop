@@ -29,7 +29,7 @@ class BrandController extends Controller
 
 
 	 /**
-	 * Create brands
+	 * Create brand
 	 */
 	public function create(BrandRequest $request){
 

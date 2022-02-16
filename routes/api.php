@@ -24,12 +24,19 @@ Route::group(['prefix' => 'v1/admin', 'namespace' => 'Admin', 'middleware'=>'jso
 });
 
 Route::group(['prefix' => 'v1', 'namespace' => 'Admin', 'middleware'=>'json.response'], function (){ 
+	//Brand
 	Route::get('/brands', 'BrandController@getBrands');
 	Route::post('/brand/create', 'BrandController@create');
 	Route::put('/brand/{uuid}', 'BrandController@edit');
 	Route::delete('/brand/{uuid}', 'BrandController@delete');
 	Route::get('/brand/{uuid}', 'BrandController@getBrand');
 
+	//Category
+	Route::get('/categories', 'CategoryController@getCategories');
+	Route::post('/category/create', 'CategoryController@create');
+	Route::put('/category/{uuid}', 'CategoryController@edit');
+	Route::delete('/category/{uuid}', 'CategoryController@delete');
+	Route::get('/category/{uuid}', 'CategoryController@getCategory');
 });
 
 Route::group(['prefix' => 'v1/user', 'namespace' => 'User', 'middleware'=>'json.response'], function (){ 

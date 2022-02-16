@@ -12,6 +12,7 @@ class Payment extends Model
 
 		protected $fillable = [
 			'uuid',
+			'user_id',
 			'type',
 			'details'
     ];

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\v1\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Http\Requests\AdminCreateUserRequest;
+use App\Http\Requests\CreateUserRequest;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -21,7 +21,7 @@ class UserController extends Controller
 	/**
 	 * Create a new user
 	 */
-	public function create(AdminCreateUserRequest $request){
+	public function create(CreateUserRequest $request){
 		
 		$user = User::create([
 			'firstname'=>$request->firstname,

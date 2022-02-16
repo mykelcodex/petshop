@@ -26,5 +26,11 @@ Route::group(['prefix' => 'v1/admin', 'namespace' => 'Admin', 'middleware'=>'jso
 Route::group(['prefix' => 'v1/user', 'namespace' => 'User', 'middleware'=>'json.response'], function (){ 
     Route::post('/login', 'AuthController@login');
     Route::get('/logout', 'AuthController@logout');
+    Route::post('/forgot-password', 'AuthController@forgotPassword');
+    Route::post('/reset-password-token', 'AuthController@resetPassword');
+    Route::get('/', 'UserController@getUser');
+    Route::delete('/', 'UserController@deleteUser');
+    Route::put('/edit', 'UserController@editUser');
+    Route::get('/orders', 'OrderController@getOrders');
 
 });

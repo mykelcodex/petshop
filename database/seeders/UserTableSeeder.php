@@ -29,7 +29,6 @@ class UserTableSeeder extends Seeder
 					'address'=>$faker->streetAddress(),
 					'phone_number'=>$faker->phoneNumber(),
 					'is_marketing'=>rand(0,1),
-
 				]); 
 			
 			}

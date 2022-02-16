@@ -23,6 +23,14 @@ Route::group(['prefix' => 'v1/admin', 'namespace' => 'Admin', 'middleware'=>'jso
     Route::get('/user-listing', 'UserController@userListing');
 });
 
+Route::group(['prefix' => 'v1', 'middleware'=>'json.response'], function (){ 
+
+	Route::get('/main/blogs', 'MainController@getPosts');
+	Route::get('/main/blog/{uuid}', 'MainController@getPost');
+	Route::get('/main/promotions', 'MainController@getPromotions');
+
+});
+
 Route::group(['prefix' => 'v1', 'namespace' => 'Admin', 'middleware'=>'json.response'], function (){ 
 	//Brand
 	Route::get('/brands', 'BrandController@getBrands');

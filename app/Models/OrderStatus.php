@@ -14,4 +14,12 @@ class OrderStatus extends Model
 			'uuid',
 			'title',
     ];
+
+		 /**
+     * Relationships
+     */
+
+		public function orders(){
+			return $this->hasMany(Order::class);
+		}
 }

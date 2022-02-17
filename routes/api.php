@@ -15,6 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::group(['prefix' => 'v1', 'middleware'=>'json.response'], function (){ 
+
+	Route::get('/main/blogs', 'MainController@getPosts');
+	Route::get('/main/blog/{uuid}', 'MainController@getPost');
+	Route::get('/main/promotions', 'MainController@getPromotions');
+
+});
+
 
 Route::group(['prefix' => 'v1/admin', 'namespace' => 'Admin', 'middleware'=>'json.response'], function (){ 
     Route::post('/login', 'AuthController@login');
@@ -23,13 +31,6 @@ Route::group(['prefix' => 'v1/admin', 'namespace' => 'Admin', 'middleware'=>'jso
     Route::get('/user-listing', 'UserController@userListing');
 });
 
-Route::group(['prefix' => 'v1', 'middleware'=>'json.response'], function (){ 
-
-	Route::get('/main/blogs', 'MainController@getPosts');
-	Route::get('/main/blog/{uuid}', 'MainController@getPost');
-	Route::get('/main/promotions', 'MainController@getPromotions');
-
-});
 
 Route::group(['prefix' => 'v1', 'namespace' => 'Admin', 'middleware'=>'json.response'], function (){ 
 	//Brand
@@ -45,7 +46,17 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Admin', 'middleware'=>'json.resp
 	Route::put('/category/{uuid}', 'CategoryController@edit');
 	Route::delete('/category/{uuid}', 'CategoryController@delete');
 	Route::get('/category/{uuid}', 'CategoryController@getCategory');
+
+	//Orders
+	Route::get('/orders', 'OrderController@getOrders');
+	Route::post('/order/create', 'OrderController@create');
+	Route::get('/order/{uuid}', 'OrderController@getOrder');
+	Route::patch('/order/{uuid}', 'OrderController@edit');
+	Route::delete('/order/{uuid}', 'OrderController@delete');
+	Route::get('/order/{uuid}/download', 'OrderController@download');
+
 });
+
 
 Route::group(['prefix' => 'v1/user', 'namespace' => 'User', 'middleware'=>'json.response'], function (){ 
     Route::post('/login', 'AuthController@login');

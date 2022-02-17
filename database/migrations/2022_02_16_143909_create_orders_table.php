@@ -19,6 +19,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('order_status_id');
             $table->unsignedBigInteger('payment_id');
             $table->string('uuid');
+            $table->string('inv_no');
             $table->json('products');
             $table->json('address');
             $table->float('delivery_fee', 8, 2)->nullable();

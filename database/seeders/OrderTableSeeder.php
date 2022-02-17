@@ -8,6 +8,7 @@ use App\Models\OrderStatus;
 use App\Models\Payment;
 use App\Models\Product;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class OrderTableSeeder extends Seeder
 {
@@ -29,9 +30,20 @@ class OrderTableSeeder extends Seeder
 					'user_id'=>$user->id,
 					'order_status_id'=>$orderStatus->id,
 					'payment_id'=>$payment->id,
+					'inv_no'=>Str::random(10),
 					'products'=>[
-						'product'=>$product->uuid,
-						'quantity'=>rand(1,20)
+						[
+							'product'=>$product,
+							'quantity'=>rand(1,20)
+						],
+						[
+							'product'=>$product,
+							'quantity'=>rand(1,20)
+						],
+						[
+							'product'=>$product,
+							'quantity'=>rand(1,20)
+						],
 					],
 					'address'=>[
 						'billing'=>$faker->address(),

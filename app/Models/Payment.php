@@ -18,6 +18,12 @@ class Payment extends Model
     ];
 
 
+		/**
+		 * Relationship
+		 */
+		public function order(){
+			return $this->hasOne(Order::class);
+		}
 
 		protected $casts = [
 			'details'=>'json'

@@ -70,7 +70,16 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Admin', 'middleware'=>'json.resp
 	Route::get('/file/{uuid}', 'FileController@getFile');
 	Route::post('/file/upload', 'FileController@upload');
 
+
+	//Order_Status
+	Route::post('/order-status/create', 'OrderStatusController@create');
+	Route::patch('/order-status/{uuid}', 'OrderStatusController@edit');
+	Route::delete('/order-status/{uuid}', 'OrderStatusController@delete');
+	Route::get('/order-status/{uuid}', 'OrderStatusController@getOrderStatus');
+	Route::get('/order-statuses', 'OrderStatusController@getOrderStatuses');
+
 });
+
 
 
 

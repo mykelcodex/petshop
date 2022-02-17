@@ -5,6 +5,7 @@ namespace App\Http\Controllers\v1\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OrderRequest;
 use App\Models\Order;
+use App\Models\Product;
 use App\Traits\ApiResponser;
 use Barryvdh\DomPDF\Facade as PDF;
 
@@ -30,11 +31,19 @@ class OrderController extends Controller
 	 * Create Order
 	 */
 	public function create(OrderRequest $request){
+
+		$products  = [];
+
+		foreach($request->products as $item){
+			$instance = Product::where('uuid', $item['product'])->first();
+			array_push($products, ['product'=>$instance,'quantity'=>$item['quantity']]);
+		}
+
 		$order = Order::create([
 			'user_id'=>$request->user_id,
 			'order_status_id'=>$request->order_status_id,
 			'payment_id'=>$request->payment_id,
-			'products'=>$request->products,
+			'products'=>$products,
 			'address'=>$request->address,
 			'delivery_fee'=>$request->delivery_fee ?? null,
 			'amount'=>$request->amount,
@@ -55,7 +64,7 @@ class OrderController extends Controller
 			return $this->errorResponse('Order not found', 404);
 		}
 
-		return $this->successResponse($order);
+		return $this->successResponse('Order created successfully');
 	}
 
 

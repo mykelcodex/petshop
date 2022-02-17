@@ -28,8 +28,12 @@ class OrderRequest extends FormRequest
 					'payment_id'=>'required | integer | exists:payments,id',
 					'products'=>'required | array',
 					'address'=>'required | array',
+					'address.billing'=>'required',
+					'address.shipping'=>'required',
 					'amount'=> 'required',
 					'user_id'=>"required | exists:users,id",
+					'products.*.product'=>'required | exists:products,uuid',
+					'products.*.quantity'=>'required | integer'
         ];
     }
 }

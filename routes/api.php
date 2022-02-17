@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//Main page routes
 Route::group(['prefix' => 'v1', 'middleware'=>'json.response'], function (){ 
 
 	Route::get('/main/blogs', 'MainController@getPosts');
@@ -23,7 +24,7 @@ Route::group(['prefix' => 'v1', 'middleware'=>'json.response'], function (){
 
 });
 
-
+//Admin Routes
 Route::group(['prefix' => 'v1/admin', 'namespace' => 'Admin', 'middleware'=>'json.response'], function (){ 
     Route::post('/login', 'AuthController@login');
     Route::get('/logout', 'AuthController@logout');
@@ -55,9 +56,19 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Admin', 'middleware'=>'json.resp
 	Route::delete('/order/{uuid}', 'OrderController@delete');
 	Route::get('/order/{uuid}/download', 'OrderController@download');
 
+
+	//Products
+	Route::get('/products', 'ProductController@getProducts');
+	Route::post('/product/create', 'ProductController@create');
+	Route::get('/product/{uuid}', 'ProductController@getProduct');
+	Route::patch('/product/{uuid}', 'ProductController@edit');
+	Route::delete('/product/{uuid}', 'ProductController@delete');
+
 });
 
 
+
+//User Routes
 Route::group(['prefix' => 'v1/user', 'namespace' => 'User', 'middleware'=>'json.response'], function (){ 
     Route::post('/login', 'AuthController@login');
     Route::get('/logout', 'AuthController@logout');

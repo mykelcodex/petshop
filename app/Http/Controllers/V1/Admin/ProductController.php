@@ -24,14 +24,14 @@ class ProductController extends Controller
 		return $this->successResponse($products);
 	}
 
-	
+
 	/**
 	 * Get product
 	 */
 	public function getProduct($uuid){
 		$product = Product::where('uuid', $uuid)->first();
 
-		if($product){
+		if(!$product){
 			return $this->errorResponse('Product not found', 404);
 		}
 	

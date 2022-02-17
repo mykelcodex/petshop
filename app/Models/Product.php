@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory, UsesUuid;
-		protected $with = ['category'];
+		protected $with = ['category','image'];
 
 		protected $fillable = [
 			'category_id',
@@ -20,12 +20,14 @@ class Product extends Model
 			'metadata',
 			'deleted_at'
     ];
+		
 
 		//Relationship
 		public function category(){
 			return $this->belongsTo(Category::class);
 		}
 
+		//Cast fields
 		protected $casts = [
 			'metadata'=>'json'
 		];

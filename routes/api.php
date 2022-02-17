@@ -64,6 +64,12 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Admin', 'middleware'=>'json.resp
 	Route::patch('/product/{uuid}', 'ProductController@edit');
 	Route::delete('/product/{uuid}', 'ProductController@delete');
 
+
+	//Files
+	Route::get('/files', 'FileController@getFiles');
+	Route::get('/file/{uuid}', 'FileController@getFile');
+	Route::post('/file/upload', 'FileController@upload');
+
 });
 
 

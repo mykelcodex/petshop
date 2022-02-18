@@ -78,6 +78,14 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Admin', 'middleware'=>'json.resp
 	Route::get('/order-status/{uuid}', 'OrderStatusController@getOrderStatus');
 	Route::get('/order-statuses', 'OrderStatusController@getOrderStatuses');
 
+
+	//Payments
+	Route::post('/payment/create', 'PaymentController@create');
+	Route::patch('/payment/{uuid}', 'PaymentController@edit');
+	Route::delete('/payment/{uuid}', 'PaymentController@delete');
+	Route::get('/payment/{uuid}', 'PaymentController@getPayment');
+	Route::get('/payments', 'PaymentController@getPayments');
+
 });
 
 

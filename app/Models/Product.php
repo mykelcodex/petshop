@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory, UsesUuid;
-		protected $with = ['category','image'];
+		protected $with = ['category'];
+		protected $appends = ['image','brand'];
 
 		protected $fillable = [
 			'category_id',
@@ -25,6 +26,18 @@ class Product extends Model
 		//Relationship
 		public function category(){
 			return $this->belongsTo(Category::class);
+		}
+
+		//Set image Attribute
+		public function getImageAttribute(){
+			$image = File::where('uuid', $this->metadata['image'])->first();
+			return $image;
+		}
+
+		//Set brand attribute
+		public function getBrandAttribute(){
+			$image = Brand::where('uuid', $this->metadata['brand'])->first();
+			return $image;
 		}
 
 		//Cast fields

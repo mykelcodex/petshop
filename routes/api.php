@@ -86,6 +86,14 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Admin', 'middleware'=>'json.resp
 	Route::get('/payment/{uuid}', 'PaymentController@getPayment');
 	Route::get('/payments', 'PaymentController@getPayments');
 
+
+	//Promotions
+	Route::post('/promotion/create', 'PromotionController@create');
+	Route::patch('/promotion/{uuid}', 'PromotionController@edit');
+	Route::delete('/promotion/{uuid}', 'PromotionController@delete');
+	Route::get('/promotion/{uuid}', 'PromotionController@getPromotion');
+	Route::get('/promotions', 'PromotionController@getPromotions');
+
 });
 
 

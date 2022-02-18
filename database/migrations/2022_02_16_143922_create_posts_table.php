@@ -18,7 +18,7 @@ class CreatePostsTable extends Migration
             $table->uuid('uuid');
             $table->string('title');
             $table->string('slug');
-            $table->string('content');
+            $table->text('content');
             $table->json('metadata');
             $table->timestamps();
         });

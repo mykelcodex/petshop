@@ -26,8 +26,9 @@ class PromotionTableSeeder extends Seeder
 					'title'=>$title,
 					'content'=>$faker->sentence(),
 					'metadata'=>[
-						'author'=>$faker->name(),
-						'image'=>$file->uuid
+						'valid_from'=>date('Y-m-d'),
+						'valid_to'=>date('Y-m-d'),
+						'image'=>$file->id
 					],
 				]);
 				

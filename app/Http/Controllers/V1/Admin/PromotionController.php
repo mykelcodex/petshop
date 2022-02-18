@@ -60,6 +60,7 @@ class PromotionController extends Controller
 		}
 
 
+		
 		/**
 		* Create Promotion
 	  */
@@ -72,6 +73,9 @@ class PromotionController extends Controller
 
 			return $this->successResponse('Promotion created successfully');
 		}
+
+
+
 
 		/**
 		* Delete Promotion

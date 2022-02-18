@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PromotionRequest extends FormRequest
+class PostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,9 +27,8 @@ class PromotionRequest extends FormRequest
           'title'=>'required',
 					'content'=>'required',
 					'metadata'=>'required | array',
-					'metadata.valid_from'=>'required | date',
-					'metadata.valid_to'=>'required | date',
-					'metadata.image'=> 'required | exists:files,uuid'
+					'metadata.author'=>'required',
+					'metadata.image'=>'required | exists:files,uuid'
         ];
     }
 }

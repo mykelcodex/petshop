@@ -19,6 +19,52 @@ class AuthController extends Controller
 	 * Authentication user
 	*/
 
+	/**
+	 * Authentication user
+	*/
+
+	 /**
+     * @OA\Post(
+     * path="/api/v1/admin/login",
+     *   tags={"Admin"},
+     *   summary="Login as admin",
+		 *   description="Login with a valid email and password to retrieve token",
+     *   operationId="admin-login",
+     *
+     *   @OA\Parameter(
+     *      name="email",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *      name="password",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *          type="string"
+     *      )
+     *   ),
+		*      @OA\Response(
+		*          response=200,
+		*          description="Successful operation",
+		*       ),
+		*      @OA\Response(
+		*          response=401,
+		*          description="Unauthenticated",
+		*      ),
+		*		@OA\Response(
+		*          response=400,
+		*          description="Bad Request",
+		*      ),
+	 *      @OA\Response(
+	 *          response=403,
+	 *          description="Forbidden"
+	 *      ),
+	 *     )
+	 */
 	public function login(Request $request){
 		$credentials = $request->only(['email', 'password']);
 
@@ -46,6 +92,35 @@ class AuthController extends Controller
 
 	/**
 	 * Logout 
+	 */
+
+	
+	/**
+	 * @OA\Get(
+	 *      path="/api/v1/admin/logout",
+	 *      operationId="admin-logout",
+	 *      tags={"Admin"},
+	 *      summary="Logout admin",
+	 *      description="Logout authenticated admin",
+		*      @OA\Response(
+		*          response=200,
+		*          description="Successful operation",
+		*       ),
+		*      @OA\Response(
+		*          response=401,
+		*          description="Unauthenticated",
+		*      ),
+		*		@OA\Response(
+		*          response=400,
+		*          description="Bad Request",
+		*      ),
+	 *      @OA\Response(
+	 *          response=403,
+	 *          description="Forbidden"
+	 *      ),
+	 * 				security={{ "apiAuth": {} }}
+
+	 *     )
 	 */
 	public function logout(){
 

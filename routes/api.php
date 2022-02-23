@@ -15,10 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+/**
+ * Version:V1 START
+ * 
+ * Petshop API V1
+ */
+
+
 //Main page routes
 Route::group(['prefix' => 'v1', 'middleware'=>'json.response'], function (){ 
 
-	Route::get('/main/blogs', 'MainController@getPosts');
+	Route::get('/main/blog', 'MainController@getPosts');
 	Route::get('/main/blog/{uuid}', 'MainController@getPost');
 	Route::get('/main/promotions', 'MainController@getPromotions');
 
@@ -30,8 +38,13 @@ Route::group(['prefix' => 'v1/admin', 'namespace' => 'Admin', 'middleware'=>'jso
     Route::get('/logout', 'AuthController@logout');
     Route::post('/create', 'UserController@create');
     Route::get('/user-listing', 'UserController@userListing');
+    Route::delete('/user-delete/{uuid}', 'UserController@deleteUserAccount');
 });
 
+
+/**
+ * Only the admin can perform CRUD operation on these resources 
+ */
 
 Route::group(['prefix' => 'v1', 'namespace' => 'Admin', 'middleware'=>'json.response'], function (){ 
 	//Brand
@@ -61,7 +74,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Admin', 'middleware'=>'json.resp
 	Route::get('/products', 'ProductController@getProducts');
 	Route::post('/product/create', 'ProductController@create');
 	Route::get('/product/{uuid}', 'ProductController@getProduct');
-	Route::patch('/product/{uuid}', 'ProductController@edit');
+	Route::put('/product/{uuid}', 'ProductController@edit');
 	Route::delete('/product/{uuid}', 'ProductController@delete');
 
 
@@ -73,7 +86,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Admin', 'middleware'=>'json.resp
 
 	//Order_Status
 	Route::post('/order-status/create', 'OrderStatusController@create');
-	Route::patch('/order-status/{uuid}', 'OrderStatusController@edit');
+	Route::put('/order-status/{uuid}', 'OrderStatusController@edit');
 	Route::delete('/order-status/{uuid}', 'OrderStatusController@delete');
 	Route::get('/order-status/{uuid}', 'OrderStatusController@getOrderStatus');
 	Route::get('/order-statuses', 'OrderStatusController@getOrderStatuses');
@@ -93,7 +106,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Admin', 'middleware'=>'json.resp
 	Route::delete('/promotion/{uuid}', 'PromotionController@delete');
 	Route::get('/promotion/{uuid}', 'PromotionController@getPromotion');
 	Route::get('/promotions', 'PromotionController@getPromotions');
-
 
 
 	//Posts
@@ -117,6 +129,13 @@ Route::group(['prefix' => 'v1/user', 'namespace' => 'User', 'middleware'=>'json.
     Route::get('/', 'UserController@getUser');
     Route::delete('/', 'UserController@deleteUser');
     Route::put('/edit', 'UserController@editUser');
+		Route::post('/create', 'UserController@create');
     Route::get('/orders', 'OrderController@getOrders');
-
 });
+
+
+/**
+ * Version:V1 -- END
+ * 
+ * Petshop API V1
+ */

@@ -41,12 +41,13 @@ class AdminAuthorization
 					return $this->errorResponse('Your token is invalid. Please, login again.', 401);     
 
 			}catch (JWTException $e) {
+
 					//Thrown if token was not found in the request.
 					return $this->errorResponse('Please, attach a Bearer Token to your request', 401);
 			}
 
 
-			//If user was authenticated successfully and user role is admin.
+			//If user was authenticated successfully and user is admin.
 			if ($user && $user->is_admin) {
 				return $next($request);
 			}

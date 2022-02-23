@@ -38,19 +38,22 @@ class UserAuthorization
 
 			} catch (TokenInvalidException $e) {
 
-					//Thrown if token invalid
+					//Thrown if token is invalid
 					return $this->errorResponse('Your token is invalid. Please, login again.', 400);     
 
 			}catch (JWTException $e) {
+
 					//Thrown if token was not found in the request.
 					return $this->errorResponse('Please, attach a Bearer Token to your request', 400);
+					
 			}
 
-			//If user was authenticated successfully and user role is not admin.
+			//If user was authenticated successfully and user is not admin.
 			if ($user && !$user->is_admin) {
 				return $next($request);
 			}
 
+			//Forbid user from accessing resource
 			return $this->errorResponse('You are unauthorized to access this resource', 403);
 
 

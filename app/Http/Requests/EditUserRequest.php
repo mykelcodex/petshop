@@ -31,6 +31,7 @@ class EditUserRequest extends FormRequest
 				'email'=>'required | email | unique:users,email',
 				'address'=>'required',
 				'phone_number'=>'required',
+				'password'=>'nullable | confirmed',
 			];
     }
 }

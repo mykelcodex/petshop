@@ -29,6 +29,7 @@ class CreateUserRequest extends FormRequest
 						'email'=>'required | email | unique:users',
 						'address'=>'required',
 						'phone_number'=>'required',
+						'password'=>'required | confirmed'
         ];
     }
 }

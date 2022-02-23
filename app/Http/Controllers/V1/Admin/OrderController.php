@@ -21,6 +21,36 @@ class OrderController extends Controller
 	/**
 	 * Get Orders
 	 */
+
+	 /**
+	 * Get brands
+	 */
+
+	 /**
+	 * @OA\Get(
+	 *      path="/api/v1/orders",
+	 *      operationId="getOrders",
+	 *      tags={"Orders"},
+	 *      summary="Get Orders",
+	*      @OA\Response(
+	*          response=200,
+	*          description="Successful operation",
+	*       ),
+	*      @OA\Response(
+	*          response=401,
+	*          description="Unauthenticated",
+	*      ),
+	*		@OA\Response(
+	*          response=400,
+	*          description="Bad Request",
+	*      ),
+	*      @OA\Response(
+	*          response=403,
+	*          description="Forbidden"
+	*      ),
+	* 			security={{ "apiAuth": {} }}
+	*     )
+	*/
 	public function getOrders(){
 		$orders = Order::latest('created_at')->paginate(20);
 		return $this->successResponse($orders);
@@ -29,6 +59,48 @@ class OrderController extends Controller
 
 	/**
 	 * Create Order
+	 */
+
+	/**
+     * @OA\Post(
+     * path="/api/v1/order/create",
+     *   tags={"Orders"},
+     *   summary="Create Order",
+     *   operationId="create-order",
+	 *	  @OA\Parameter(
+     *      name="order_status_uuid",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *  	    )
+     *  	 ),
+	 *  	@OA\Parameter(
+     *  	    name="payment_uuid",
+     *  	    in="query",
+     *  	    required=true,
+     *  	    @OA\Schema(
+     *  	         type="string"
+     *  	    )
+     *  	 ),
+	 *      @OA\Response(
+	 *          response=200,
+	 *          description="Successful operation",
+	 *       ),
+	 *      @OA\Response(
+	 *          response=401,
+	 *          description="Unauthenticated",
+	 *      ),
+	 *		@OA\Response(
+	 *          response=400,
+	 *          description="Bad Request",
+	 *      ),
+	 *      @OA\Response(
+	 *          response=403,
+	 *          description="Forbidden"
+	 *      ),
+	 * 			security={{ "apiAuth": {} }}
+	 *     )
 	 */
 	public function create(OrderRequest $request){
 
@@ -57,6 +129,40 @@ class OrderController extends Controller
 	/**
 	 * Get Order
 	 */
+
+		/**
+	 * @OA\Get(
+	 *      path="/api/v1/order/{uuid}",
+	 *      operationId="getOrder",
+	 *      tags={"Orders"},
+	 *      summary="Get Order",
+	 * 			@OA\Parameter(
+   * 			     name="uuid",
+   * 			     in="path",
+   * 			     required=true,
+   * 			     @OA\Schema(
+   * 			          type="string"
+   * 			     )
+   * 			  ),
+	*      @OA\Response(
+	*          response=200,
+	*          description="Successful operation",
+	*       ),
+	*      @OA\Response(
+	*          response=401,
+	*          description="Unauthenticated",
+	*      ),
+	*		@OA\Response(
+	*          response=400,
+	*          description="Bad Request",
+	*      ),
+	*      @OA\Response(
+	*          response=403,
+	*          description="Forbidden"
+	*      ),
+	* 			security={{ "apiAuth": {} }}
+	*     )
+	*/
 	public function getOrder($uuid){
 		$order = Order::where('uuid', $uuid)->first();
 		
@@ -64,13 +170,60 @@ class OrderController extends Controller
 			return $this->errorResponse('Order not found', 404);
 		}
 
-		return $this->successResponse('Order created successfully');
+		return $this->successResponse($order);
 	}
+
+
+
+
 
 
 	/**
 	 * Edit Order
 	 */
+
+	 /**
+     * @OA\Put(
+     * path="/api/v1/order",
+     *   tags={"Orders"},
+     *   summary="Update Order",
+     *   operationId="update-order",
+		 *  @OA\Parameter(
+     *      name="order_status_uuid",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+		 *  @OA\Parameter(
+     *      name="payment_uuid",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+		*      @OA\Response(
+		*          response=200,
+		*          description="Successful operation",
+		*       ),
+		*      @OA\Response(
+		*          response=401,
+		*          description="Unauthenticated",
+		*      ),
+		*		@OA\Response(
+		*          response=400,
+		*          description="Bad Request",
+		*      ),
+	 *      @OA\Response(
+	 *          response=403,
+	 *          description="Forbidden"
+	 *      ),
+	 * 			security={{ "apiAuth": {} }}
+	 *     )
+	 */
+
 	public function edit(OrderRequest $request, $uuid){
 		$order = Order::where('uuid', $uuid)->first();
 		
@@ -94,6 +247,39 @@ class OrderController extends Controller
 	/**
 	 * Delete Order
 	 */
+		/**
+	 * @OA\Delete(
+	 *      path="/api/v1/order/{uuid}",
+	 *      operationId="deleteOrder",
+	 *      tags={"Orders"},
+	 *      summary="Delete Order",
+	 * 			@OA\Parameter(
+   * 			     name="uuid",
+   * 			     in="path",
+   * 			     required=true,
+   * 			     @OA\Schema(
+   * 			          type="string"
+   * 			     )
+   * 			  ),
+	*      @OA\Response(
+	*          response=200,
+	*          description="Successful operation",
+	*       ),
+	*      @OA\Response(
+	*          response=401,
+	*          description="Unauthenticated",
+	*      ),
+	*		@OA\Response(
+	*          response=400,
+	*          description="Bad Request",
+	*      ),
+	*      @OA\Response(
+	*          response=403,
+	*          description="Forbidden"
+	*      ),
+	* 			security={{ "apiAuth": {} }}
+	*     )
+	*/
 	public function delete($uuid){
 		$order = Order::where('uuid', $uuid)->first();
 		
@@ -111,9 +297,41 @@ class OrderController extends Controller
 	 * Download Order
 	 */
 
-	 /**
-	 * Get Order
-	 */
+	 	/**
+	 * @OA\Get(
+	 *      path="/api/v1/order/{uuid}/download",
+	 *      operationId="downlaodOrder",
+	 *      tags={"Orders"},
+	 *      summary="Download Order",
+	 * 			@OA\Parameter(
+   * 			     name="uuid",
+   * 			     in="path",
+   * 			     required=true,
+   * 			     @OA\Schema(
+   * 			          type="string"
+   * 			     )
+   * 			  ),
+	*      @OA\Response(
+	*          response=200,
+	*          description="Successful operation",
+	*       ),
+	*      @OA\Response(
+	*          response=401,
+	*          description="Unauthenticated",
+	*      ),
+	*		@OA\Response(
+	*          response=400,
+	*          description="Bad Request",
+	*      ),
+	*      @OA\Response(
+	*          response=403,
+	*          description="Forbidden"
+	*      ),
+	* 			security={{ "apiAuth": {} }}
+	*     )
+	*/
+
+
 	public function download($uuid){
 		$order = Order::with(['user','payment'])->where('uuid', $uuid)->first();
 		

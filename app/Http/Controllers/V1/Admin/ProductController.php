@@ -13,12 +13,38 @@ class ProductController extends Controller
 	use ApiResponser;
 
 	public function __construct(){
-		$this->middleware('auth.admin');
+		$this->middleware('auth.admin', ['except'=>['getProducts','getProduct']]);
 	}
 
 	/**
 	 * Get all products
 	 */
+
+	
+	/**
+	 * @OA\Get(
+	 *      path="/api/v1/products",
+	 *      operationId="getProducts",
+	 *      tags={"Products"},
+	 *      summary="Get Products",
+	*      @OA\Response(
+	*          response=200,
+	*          description="Successful operation",
+	*       ),
+	*      @OA\Response(
+	*          response=401,
+	*          description="Unauthenticated",
+	*      ),
+	*		@OA\Response(
+	*          response=400,
+	*          description="Bad Request",
+	*      ),
+	*      @OA\Response(
+	*          response=403,
+	*          description="Forbidden"
+	*      ),
+	*     )
+	*/
 	public function getProducts(){
 		$products = Product::latest('created_at')->paginate();
 		return $this->successResponse($products);
@@ -28,6 +54,38 @@ class ProductController extends Controller
 	/**
 	 * Get product
 	 */
+	/**
+	 * @OA\Get(
+	 *      path="/api/v1/product/{uuid}",
+	 *      operationId="getProduct",
+	 *      tags={"Products"},
+	 *      summary="Get product",
+	 * @OA\Parameter(
+     *      name="uuid",
+     *      in="path",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+	*      @OA\Response(
+	*          response=200,
+	*          description="Successful operation",
+	*       ),
+	*      @OA\Response(
+	*          response=401,
+	*          description="Unauthenticated",
+	*      ),
+	*		@OA\Response(
+	*          response=400,
+	*          description="Bad Request",
+	*      ),
+	*      @OA\Response(
+	*          response=403,
+	*          description="Forbidden"
+	*      ),
+	*     )
+	*/
 	public function getProduct($uuid){
 		$product = Product::where('uuid', $uuid)->first();
 
@@ -78,6 +136,42 @@ class ProductController extends Controller
 	/**
 	 * Delete product
 	 */
+	/**
+	 * Get product
+	 */
+	/**
+	 * @OA\Delete(
+	 *      path="/api/v1/product/{uuid}",
+	 *      operationId="deleteProduct",
+	 *      tags={"Products"},
+	 *      summary="Delete product",
+	 * @OA\Parameter(
+     *      name="uuid",
+     *      in="path",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+	*      @OA\Response(
+	*          response=200,
+	*          description="Successful operation",
+	*       ),
+	*      @OA\Response(
+	*          response=401,
+	*          description="Unauthenticated",
+	*      ),
+	*		@OA\Response(
+	*          response=400,
+	*          description="Bad Request",
+	*      ),
+	*      @OA\Response(
+	*          response=403,
+	*          description="Forbidden"
+	*      ),
+	* 			security={{ "apiAuth": {} }}
+	*     )
+	*/
 	public function delete($uuid){
 		$product = Product::where('uuid', $uuid)->first();
 		$product->delete();

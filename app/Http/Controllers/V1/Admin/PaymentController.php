@@ -19,6 +19,32 @@ class PaymentController extends Controller
 	/**
 	 * Get Payments
 	 */
+
+	/**
+	 * @OA\Get(
+	 *      path="/api/v1/payments",
+	 *      operationId="getPayments",
+	 *      tags={"Payments"},
+	 *      summary="Get payments",
+	*      @OA\Response(
+	*          response=200,
+	*          description="Successful operation",
+	*       ),
+	*      @OA\Response(
+	*          response=401,
+	*          description="Unauthenticated",
+	*      ),
+	*		@OA\Response(
+	*          response=400,
+	*          description="Bad Request",
+	*      ),
+	*      @OA\Response(
+	*          response=403,
+	*          description="Forbidden"
+	*      ),
+	* 			security={{ "apiAuth": {} }}
+	*     )
+	*/
 	public function getPayments(){
 		$payments = Payment::latest('created_at')->paginate(20);
 		return $this->successResponse($payments);
@@ -27,6 +53,40 @@ class PaymentController extends Controller
 	/**
 	 * Get Payment
 	 */
+
+	/**
+	 * @OA\Get(
+	 *      path="/api/v1/payment/{uuid}",
+	 *      operationId="getPayment",
+	 *      tags={"Payments"},
+	 *      summary="Get payment",
+	 * 			@OA\Parameter(
+   * 			     name="uuid",
+   * 			     in="path",
+   * 			     required=true,
+   * 			     @OA\Schema(
+   * 			         type="string"
+   * 			     )
+   * 			  ),
+	*      @OA\Response(
+	*          response=200,
+	*          description="Successful operation",
+	*       ),
+	*      @OA\Response(
+	*          response=401,
+	*          description="Unauthenticated",
+	*      ),
+	*		@OA\Response(
+	*          response=400,
+	*          description="Bad Request",
+	*      ),
+	*      @OA\Response(
+	*          response=403,
+	*          description="Forbidden"
+	*      ),
+	* 			security={{ "apiAuth": {} }}
+	*     )
+	*/
 	public function getPayment($uuid){
 		$payment = Payment::where('uuid', $uuid)->first();
 
@@ -75,6 +135,40 @@ class PaymentController extends Controller
 	/**
 	 * Delete Payment
 	 */
+
+	 /**
+	 * @OA\Delete(
+	 *      path="/api/v1/payment/{uuid}",
+	 *      operationId="deletePayment",
+	 *      tags={"Payments"},
+	 *      summary="Delete payment",
+	 * 			@OA\Parameter(
+   * 			     name="uuid",
+   * 			     in="path",
+   * 			     required=true,
+   * 			     @OA\Schema(
+   * 			         type="string"
+   * 			     )
+   * 			  ),
+	*      @OA\Response(
+	*          response=200,
+	*          description="Successful operation",
+	*       ),
+	*      @OA\Response(
+	*          response=401,
+	*          description="Unauthenticated",
+	*      ),
+	*		@OA\Response(
+	*          response=400,
+	*          description="Bad Request",
+	*      ),
+	*      @OA\Response(
+	*          response=403,
+	*          description="Forbidden"
+	*      ),
+	* 			security={{ "apiAuth": {} }}
+	*     )
+	*/
 	public function delete($uuid){
 		$payment = Payment::where('uuid', $uuid)->first();
 

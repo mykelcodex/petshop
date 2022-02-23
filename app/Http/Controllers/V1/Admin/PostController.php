@@ -14,7 +14,7 @@ class PostController extends Controller
 	use ApiResponser;
 
 	public function __construct(){
-		$this->middleware('auth.admin');
+		$this->middleware('auth.admin',['except'=>['getPosts','getPost']]);
 	}
 
 	/**
@@ -57,6 +57,31 @@ class PostController extends Controller
 	/**
 	 * Get posts
 	 */
+
+	 /**
+		 * @OA\Get(
+		 *      path="/api/v1/posts",
+		 *      operationId="getPosts",
+		 *      tags={"Posts"},
+		 *      summary="Get posts",
+		*      @OA\Response(
+		*          response=200,
+		*          description="Successful operation",
+		*       ),
+		*      @OA\Response(
+		*          response=401,
+		*          description="Unauthenticated",
+		*      ),
+		*		@OA\Response(
+		*          response=400,
+		*          description="Bad Request",
+		*      ),
+		*      @OA\Response(
+		*          response=403,
+		*          description="Forbidden"
+		*      ),
+		*     )
+		*/
 	public function getPosts(){
 
 		$posts = Post::latest('created_at')->paginate(20);
@@ -68,6 +93,39 @@ class PostController extends Controller
 	/**
 	 * Get post
 	 */
+
+	 /**
+		 * @OA\Get(
+		 *      path="/api/v1/post/{uuid}",
+		 *      operationId="getPost",
+		 *      tags={"Posts"},
+		 *      summary="Get post",
+		 *    @OA\Parameter(
+     *     		 name="uuid",
+     *     		 in="path",
+     *     		 required=true,
+     *     		 @OA\Schema(
+     *     		      type="string"
+     *     		 )
+     *   		),
+		*      @OA\Response(
+		*          response=200,
+		*          description="Successful operation",
+		*       ),
+		*      @OA\Response(
+		*          response=401,
+		*          description="Unauthenticated",
+		*      ),
+		*		@OA\Response(
+		*          response=400,
+		*          description="Bad Request",
+		*      ),
+		*      @OA\Response(
+		*          response=403,
+		*          description="Forbidden"
+		*      ),
+		*     )
+		*/
 	public function getPost($uuid){
 
 		$post = Post::where('uuid', $uuid)->first();
@@ -81,8 +139,41 @@ class PostController extends Controller
 
 
 	/**
-	 * Get post
+	 * Delete post
 	 */
+/**
+		 * @OA\Delete(
+		 *      path="/api/v1/post/{uuid}",
+		 *      operationId="getPost",
+		 *      tags={"Posts"},
+		 *      summary="Get post",
+		 *    @OA\Parameter(
+     *     		 name="uuid",
+     *     		 in="path",
+     *     		 required=true,
+     *     		 @OA\Schema(
+     *     		      type="string"
+     *     		 )
+     *   		),
+		*      @OA\Response(
+		*          response=200,
+		*          description="Successful operation",
+		*       ),
+		*      @OA\Response(
+		*          response=401,
+		*          description="Unauthenticated",
+		*      ),
+		*		@OA\Response(
+		*          response=400,
+		*          description="Bad Request",
+		*      ),
+		*      @OA\Response(
+		*          response=403,
+		*          description="Forbidden"
+		*      ),
+		* 			security={{ "apiAuth": {} }}
+		*     )
+		*/
 	public function delete($uuid){
 
 		$post = Post::where('uuid', $uuid)->first();

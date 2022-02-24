@@ -193,9 +193,9 @@ class OrderStatusController extends Controller
 		/**
 		 * @OA\Put(
 		 *      path="/api/v1/order-status/{uuid}",
-		 *      operationId="createOrderStatus",
+		 *      operationId="editOrderStatus",
 		 *      tags={"Order Statuses"},
-		 *      summary="Create order status",
+		 *      summary="Edit order status",
 		 * @OA\Parameter(
      *      name="uuid",
      *      in="path",

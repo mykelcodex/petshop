@@ -147,7 +147,6 @@ class UserController extends Controller
      *   @OA\Parameter(
      *      name="avatar",
      *      in="query",
-     *      required=true,
      *      @OA\Schema(
      *          type="string"
      *      )
@@ -171,7 +170,6 @@ class UserController extends Controller
 		 * @OA\Parameter(
      *      name="is_marketing",
      *      in="query",
-     *      required=true,
      *      @OA\Schema(
      *           type="string"
      *      )
@@ -269,7 +267,6 @@ class UserController extends Controller
      *   @OA\Parameter(
      *      name="avatar",
      *      in="query",
-     *      required=true,
      *      @OA\Schema(
      *          type="string"
      *      )
@@ -293,7 +290,6 @@ class UserController extends Controller
 		 * @OA\Parameter(
      *      name="is_marketing",
      *      in="query",
-     *      required=true,
      *      @OA\Schema(
      *           type="string"
      *      )

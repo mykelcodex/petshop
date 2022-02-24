@@ -78,10 +78,10 @@ class OrderController extends Controller
  *                type="array",
  *                example={{
  *                  "id": "integer",
- *                  "quantity": 0,
+ *                  "quantity": "integer",
  *                }, {
  *                  "id": "integer",
- *                  "quantity": 0,
+ *                  "quantity": "integer",
  *                }},
  *                @OA\Items(
  *                      
@@ -112,7 +112,7 @@ class OrderController extends Controller
  *                 ),
  * 							@OA\Property(
  *                     property="user_id",
- *                     type="string"
+ *                     type="integer"
  *                 ),
  *        ),
  * 			
@@ -144,7 +144,7 @@ class OrderController extends Controller
 			array_push($products, ['product'=>$instance,'quantity'=>$item['quantity']]);
 		}
 
-		$order = Order::create([
+		Order::create([
 			'user_id'=>$request->user_id,
 			'order_status_id'=>$request->order_status_id,
 			'payment_id'=>$request->payment_id,
@@ -155,7 +155,7 @@ class OrderController extends Controller
 			'inv_no'=>'#'.str_pad($this->randNum() + 1, 8, "0", STR_PAD_LEFT)
 		]);
 
-		return $this->successResponse($order);
+		return $this->successResponse('Order created successfully');
 	}
 
 
@@ -273,7 +273,7 @@ class OrderController extends Controller
  *                 ),
  * 							@OA\Property(
  *                     property="user_id",
- *                     type="string"
+ *                     type="integer"
  *                 ),
  *        ),
  * 			

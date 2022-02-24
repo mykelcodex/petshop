@@ -438,9 +438,6 @@
                             "schema": {
                                 "allOf": [
                                     {
-                                        "$ref": "#components/schemas/item"
-                                    },
-                                    {
                                         "properties": {
                                             "file": {
                                                 "description": "File",
@@ -590,11 +587,11 @@
                                         "example": [
                                             {
                                                 "id": "integer",
-                                                "quantity": 0
+                                                "quantity": "integer"
                                             },
                                             {
                                                 "id": "integer",
-                                                "quantity": 0
+                                                "quantity": "integer"
                                             }
                                         ]
                                     },
@@ -616,7 +613,7 @@
                                         "type": "string"
                                     },
                                     "user_id": {
-                                        "type": "string"
+                                        "type": "integer"
                                     }
                                 },
                                 "type": "object"
@@ -734,7 +731,7 @@
                                         "type": "string"
                                     },
                                     "user_id": {
-                                        "type": "string"
+                                        "type": "integer"
                                     }
                                 },
                                 "type": "object"
@@ -893,8 +890,8 @@
                 "tags": [
                     "Order Statuses"
                 ],
-                "summary": "Create order status",
-                "operationId": "createOrderStatus",
+                "summary": "Edit order status",
+                "operationId": "editOrderStatus",
                 "parameters": [
                     {
                         "name": "uuid",
@@ -2011,7 +2008,6 @@
                     {
                         "name": "avatar",
                         "in": "query",
-                        "required": true,
                         "schema": {
                             "type": "string"
                         }
@@ -2035,7 +2031,6 @@
                     {
                         "name": "is_marketing",
                         "in": "query",
-                        "required": true,
                         "schema": {
                             "type": "string"
                         }
@@ -2510,7 +2505,6 @@
                     {
                         "name": "avatar",
                         "in": "query",
-                        "required": true,
                         "schema": {
                             "type": "string"
                         }
@@ -2534,7 +2528,6 @@
                     {
                         "name": "is_marketing",
                         "in": "query",
-                        "required": true,
                         "schema": {
                             "type": "string"
                         }
@@ -2612,7 +2605,6 @@
                     {
                         "name": "avatar",
                         "in": "query",
-                        "required": true,
                         "schema": {
                             "type": "string"
                         }
@@ -2636,7 +2628,6 @@
                     {
                         "name": "is_marketing",
                         "in": "query",
-                        "required": true,
                         "schema": {
                             "type": "string"
                         }

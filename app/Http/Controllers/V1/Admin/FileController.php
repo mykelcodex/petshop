@@ -35,7 +35,6 @@ class FileController extends Controller
     *             mediaType="multipart/form-data",
     *             @OA\Schema(
     *                 allOf={
-    *                     @OA\Schema(ref="#components/schemas/item"),
     *                     @OA\Schema(
     *                         @OA\Property(
     *                             description="File",

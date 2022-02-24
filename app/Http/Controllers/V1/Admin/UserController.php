@@ -72,7 +72,6 @@ class UserController extends Controller
      *   @OA\Parameter(
      *      name="avatar",
      *      in="query",
-     *      required=true,
      *      @OA\Schema(
      *          type="string"
      *      )
@@ -96,7 +95,6 @@ class UserController extends Controller
 		 * @OA\Parameter(
      *      name="is_marketing",
      *      in="query",
-     *      required=true,
      *      @OA\Schema(
      *           type="string"
      *      )
@@ -122,7 +120,7 @@ class UserController extends Controller
 	 */
 	public function create(CreateUserRequest $request){
 		
-		User::create([
+		$user = User::create([
 			'firstname'=>$request->firstname,
 			'lastname'=>$request->lastname,
 			'email'=>$request->email,
@@ -132,7 +130,7 @@ class UserController extends Controller
 			'is_admin'=> $request->is_admin ?? 1
 		]);
 		
-		return $this->successResponse('User created successfully');
+		return $this->successResponse($user);
 
 	}
 

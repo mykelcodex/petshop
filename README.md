@@ -2,7 +2,7 @@
 # Petshop API
 
 ### Installation
-Run `composer install` to install all dependecies
+Run `composer install` to install all dependecies<br>
 cd into project and run `php artisan serve`
 
 ### Documentation

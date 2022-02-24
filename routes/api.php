@@ -65,7 +65,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Admin', 'middleware'=>'json.resp
 	Route::get('/orders', 'OrderController@getOrders');
 	Route::post('/order/create', 'OrderController@create');
 	Route::get('/order/{uuid}', 'OrderController@getOrder');
-	Route::patch('/order/{uuid}', 'OrderController@edit');
+	Route::put('/order/{uuid}', 'OrderController@edit');
 	Route::delete('/order/{uuid}', 'OrderController@delete');
 	Route::get('/order/{uuid}/download', 'OrderController@download');
 
@@ -94,7 +94,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Admin', 'middleware'=>'json.resp
 
 	//Payments
 	Route::post('/payment/create', 'PaymentController@create');
-	Route::patch('/payment/{uuid}', 'PaymentController@edit');
+	Route::put('/payment/{uuid}', 'PaymentController@edit');
 	Route::delete('/payment/{uuid}', 'PaymentController@delete');
 	Route::get('/payment/{uuid}', 'PaymentController@getPayment');
 	Route::get('/payments', 'PaymentController@getPayments');
@@ -102,7 +102,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Admin', 'middleware'=>'json.resp
 
 	//Promotions
 	Route::post('/promotion/create', 'PromotionController@create');
-	Route::patch('/promotion/{uuid}', 'PromotionController@edit');
+	Route::put('/promotion/{uuid}', 'PromotionController@edit');
 	Route::delete('/promotion/{uuid}', 'PromotionController@delete');
 	Route::get('/promotion/{uuid}', 'PromotionController@getPromotion');
 	Route::get('/promotions', 'PromotionController@getPromotions');
@@ -110,7 +110,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Admin', 'middleware'=>'json.resp
 
 	//Posts
 	Route::post('/post/create', 'PostController@create');
-	Route::patch('/post/{uuid}', 'PostController@edit');
+	Route::put('/post/{uuid}', 'PostController@edit');
 	Route::delete('/post/{uuid}', 'PostController@delete');
 	Route::get('/post/{uuid}', 'PostController@getPost');
 	Route::get('/posts', 'PostController@getPosts');

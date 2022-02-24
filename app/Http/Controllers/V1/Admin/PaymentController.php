@@ -100,6 +100,77 @@ class PaymentController extends Controller
 	/**
 	 * Edit Payment
 	 */
+
+	 /**
+ * @OA\Put(
+ *     path="/api/v1/payment/{uuid}",
+ *   	 tags={"Payments"},
+ *   	 summary="Update Payment",
+ *   	 operationId="update-payment",
+ *  		@OA\Parameter(
+*   		   name="uuid",
+*   		   in="path",
+*   		   required=true,
+*   		   @OA\Schema(
+*   		        type="string"
+*   		   )
+*   		),
+*			@OA\Parameter(
+*   		   name="user_id",
+*   		   in="query",
+*   		   required=true,
+*   		   @OA\Schema(
+*   		        type="integer"
+*   		   )
+*   		),
+*				@OA\Parameter(
+*   		   name="type",
+*   		   in="query",
+*   		   required=true,
+*   		   @OA\Schema(
+*   		        type="string"
+*   		   )
+*   		),
+ *     @OA\RequestBody(
+ *        required = true,
+ *        description = "Update existing payment",
+ *        @OA\JsonContent(
+ *             type="object",
+ *            @OA\Property(
+ *                property="details",
+ *                type="array",
+ *                example={
+ *										"holder_name": "string",
+ *											"number": "string",
+ *										  "ccv": "integer",
+ *										"expire_date": "string"
+ *									},
+ *                @OA\Items(
+ *                      
+ *                ),
+ *             ),
+ * 
+ *        ),
+ * 			
+ *     ),
+ *
+ *
+ *     @OA\Response(
+ *        response="200",
+ *        description="Successful response",
+ *     ),
+ * 		@OA\Response(
+ *        response="422",
+ *        description="Unprocessable Entity",
+ *     ),
+ *   @OA\Response(
+ *        response="403",
+ *        description="Forbidden",
+ *     ),
+ * 		
+ * 		security={{ "apiAuth": {} }}
+ * )
+ */
 	public function edit(PaymentRequest $request, $uuid){
 
 		$payment = Payment::where('uuid', $uuid)->first();
@@ -120,6 +191,70 @@ class PaymentController extends Controller
 	/**
 	 * Create Payment
 	 */
+
+
+		 /**
+ * @OA\Post(
+ *     path="/api/v1/payment/create",
+ *   	 tags={"Payments"},
+ *   	 summary="create Payment",
+ *   	 operationId="create-payment",
+*			@OA\Parameter(
+*   		   name="user_id",
+*   		   in="query",
+*   		   required=true,
+*   		   @OA\Schema(
+*   		        type="integer"
+*   		   )
+*   		),
+*				@OA\Parameter(
+*   		   name="type",
+*   		   in="query",
+*   		   required=true,
+*   		   @OA\Schema(
+*   		        type="string"
+*   		   )
+*   		),
+ *     @OA\RequestBody(
+ *        required = true,
+ *        description = "create a new payment for user",
+ *        @OA\JsonContent(
+ *             type="object",
+ *            @OA\Property(
+ *                property="details",
+ *                type="array",
+ *                example={
+ *										"holder_name": "string",
+ *											"number": "string",
+ *										  "ccv": "integer",
+ *										"expire_date": "string"
+ *									},
+ *                @OA\Items(
+ *                      
+ *                ),
+ *             ),
+ * 
+ *        ),
+ * 			
+ *     ),
+ *
+ *
+ *     @OA\Response(
+ *        response="200",
+ *        description="Successful response",
+ *     ),
+ * 		@OA\Response(
+ *        response="422",
+ *        description="Unprocessable Entity",
+ *     ),
+ *   @OA\Response(
+ *        response="403",
+ *        description="Forbidden",
+ *     ),
+ * 		
+ * 		security={{ "apiAuth": {} }}
+ * )
+ */
 	public function create(PaymentRequest $request){
 
 		Payment::create([

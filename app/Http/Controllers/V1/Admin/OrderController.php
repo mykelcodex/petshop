@@ -61,53 +61,86 @@ class OrderController extends Controller
 	 * Create Order
 	 */
 
+
 	/**
-     * @OA\Post(
-     * path="/api/v1/order/create",
-     *   tags={"Orders"},
-     *   summary="Create Order",
-     *   operationId="create-order",
-	 *	  @OA\Parameter(
-     *      name="order_status_uuid",
-     *      in="query",
-     *      required=true,
-     *      @OA\Schema(
-     *           type="string"
-     *  	    )
-     *  	 ),
-	 *  	@OA\Parameter(
-     *  	    name="payment_uuid",
-     *  	    in="query",
-     *  	    required=true,
-     *  	    @OA\Schema(
-     *  	         type="string"
-     *  	    )
-     *  	 ),
-	 *      @OA\Response(
-	 *          response=200,
-	 *          description="Successful operation",
-	 *       ),
-	 *      @OA\Response(
-	 *          response=401,
-	 *          description="Unauthenticated",
-	 *      ),
-	 *		@OA\Response(
-	 *          response=400,
-	 *          description="Bad Request",
-	 *      ),
-	 *      @OA\Response(
-	 *          response=403,
-	 *          description="Forbidden"
-	 *      ),
-	 * 			security={{ "apiAuth": {} }}
-	 *     )
-	 */
+ * @OA\Post(
+ *     path="/api/v1/order/create",
+ *   	 tags={"Orders"},
+ *   	 summary="Create Order",
+ *   	 operationId="create-order",
+ *     @OA\RequestBody(
+ *        required = true,
+ *        description = "Create a new order",
+ *        @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(
+ *                property="products",
+ *                type="array",
+ *                example={{
+ *                  "id": "integer",
+ *                  "quantity": 0,
+ *                }, {
+ *                  "id": "integer",
+ *                  "quantity": 0,
+ *                }},
+ *                @OA\Items(
+ *                      
+ *                ),
+ *             ),
+ *            @OA\Property(
+ *                property="address",
+ *                type="array",
+ *                example={
+ *                  "billing": "string",
+ *									"shipping": "string"
+ *                },
+ *                @OA\Items(
+ *                      
+ *                ),
+ *             ),
+ * 						@OA\Property(
+ *                     property="order_status_id",
+ *                     type="integer"
+ *                 ),
+ *                 @OA\Property(
+ *                     property="payment_id",
+ *                     type="integer"
+ *                 ),
+ *						@OA\Property(
+ *                     property="amount",
+ *                     type="string"
+ *                 ),
+ * 							@OA\Property(
+ *                     property="user_id",
+ *                     type="string"
+ *                 ),
+ *        ),
+ * 			
+ *     ),
+ *
+ *
+ *     @OA\Response(
+ *        response="200",
+ *        description="Successful response",
+ *     ),
+ * 		@OA\Response(
+ *        response="422",
+ *        description="Unprocessable Entity",
+ *     ),
+ *   @OA\Response(
+ *        response="403",
+ *        description="Forbidden",
+ *     ),
+ * 		
+ * 		security={{ "apiAuth": {} }}
+ * )
+ */
 	public function create(OrderRequest $request){
 
 		$products  = [];
 
 		foreach($request->products as $item){
-			$instance = Product::where('uuid', $item['product'])->first();
+			$instance = Product::where('id', $item['id'])->first();
 			array_push($products, ['product'=>$instance,'quantity'=>$item['quantity']]);
 		}
 
@@ -183,46 +216,86 @@ class OrderController extends Controller
 	 */
 
 	 /**
-     * @OA\Put(
-     * path="/api/v1/order",
-     *   tags={"Orders"},
-     *   summary="Update Order",
-     *   operationId="update-order",
-		 *  @OA\Parameter(
-     *      name="order_status_uuid",
-     *      in="query",
-     *      required=true,
-     *      @OA\Schema(
-     *           type="string"
-     *      )
-     *   ),
-		 *  @OA\Parameter(
-     *      name="payment_uuid",
-     *      in="query",
-     *      required=true,
-     *      @OA\Schema(
-     *           type="string"
-     *      )
-     *   ),
-		*      @OA\Response(
-		*          response=200,
-		*          description="Successful operation",
-		*       ),
-		*      @OA\Response(
-		*          response=401,
-		*          description="Unauthenticated",
-		*      ),
-		*		@OA\Response(
-		*          response=400,
-		*          description="Bad Request",
-		*      ),
-	 *      @OA\Response(
-	 *          response=403,
-	 *          description="Forbidden"
-	 *      ),
-	 * 			security={{ "apiAuth": {} }}
-	 *     )
-	 */
+ * @OA\Put(
+ *     path="/api/v1/order/{uuid}",
+ *   	 tags={"Orders"},
+ *   	 summary="Update Order",
+ *   	 operationId="update-order",
+ *  		@OA\Parameter(
+*   		   name="uuid",
+*   		   in="path",
+*   		   required=true,
+*   		   @OA\Schema(
+*   		        type="string"
+*   		   )
+*   		),
+ *     @OA\RequestBody(
+ *        required = true,
+ *        description = "Create a new order",
+ *        @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(
+ *                property="products",
+ *                type="array",
+ *                example={{
+ *                  "id": "integer",
+ *                  "quantity": 0,
+ *                }, {
+ *                  "id": "integer",
+ *                  "quantity": 0,
+ *                }},
+ *                @OA\Items(
+ *                      
+ *                ),
+ *             ),
+ *            @OA\Property(
+ *                property="address",
+ *                type="array",
+ *                example={
+ *                  "billing": "string",
+ *									"shipping": "string"
+ *                },
+ *                @OA\Items(
+ *                      
+ *                ),
+ *             ),
+ * 						@OA\Property(
+ *                     property="order_status_id",
+ *                     type="integer"
+ *                 ),
+ *                 @OA\Property(
+ *                     property="payment_id",
+ *                     type="integer"
+ *                 ),
+ *						@OA\Property(
+ *                     property="amount",
+ *                     type="string"
+ *                 ),
+ * 							@OA\Property(
+ *                     property="user_id",
+ *                     type="string"
+ *                 ),
+ *        ),
+ * 			
+ *     ),
+ *
+ *
+ *     @OA\Response(
+ *        response="200",
+ *        description="Successful response",
+ *     ),
+ * 		@OA\Response(
+ *        response="422",
+ *        description="Unprocessable Entity",
+ *     ),
+ *   @OA\Response(
+ *        response="403",
+ *        description="Forbidden",
+ *     ),
+ * 		
+ * 		security={{ "apiAuth": {} }}
+ * )
+ */
 
 	public function edit(OrderRequest $request, $uuid){
 		$order = Order::where('uuid', $uuid)->first();

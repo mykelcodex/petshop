@@ -100,6 +100,83 @@ class ProductController extends Controller
 	/**
 	 * Create product
 	 */
+
+	/**
+ * @OA\Post(
+ *     path="/api/v1/product/create",
+ *   	 tags={"Products"},
+ *   	 summary="create product",
+ *   	 operationId="create-product",
+*			@OA\Parameter(
+*   		   name="category_id",
+*   		   in="query",
+*   		   required=true,
+*   		   @OA\Schema(
+*   		        type="integer"
+*   		   )
+*   		),
+*			@OA\Parameter(
+*   		   name="title",
+*   		   in="query",
+*   		   required=true,
+*   		   @OA\Schema(
+*   		        type="string"
+*   		   )
+*   		),
+*				@OA\Parameter(
+*   		   name="price",
+*   		   in="query",
+*   		   required=true,
+*   		   @OA\Schema(
+*   		        type="string"
+*   		   )
+*   		),
+*				@OA\Parameter(
+*   		   name="description",
+*   		   in="query",
+*   		   required=true,
+*   		   @OA\Schema(
+*   		        type="string"
+*   		   )
+*   		),
+ *     @OA\RequestBody(
+ *        required = true,
+ *        description = "create new product",
+ *        @OA\JsonContent(
+ *             type="object",
+ *            @OA\Property(
+ *                property="metadata",
+ *                type="array",
+ *                example={
+ *										"brand": "string",
+ *										"image": "string"
+ *									},
+ *                @OA\Items(
+ *                      
+ *                ),
+ *             ),
+ * 
+ *        ),
+ * 			
+ *     ),
+ *
+ *
+ *     @OA\Response(
+ *        response="200",
+ *        description="Successful response",
+ *     ),
+ * 		@OA\Response(
+ *        response="422",
+ *        description="Unprocessable Entity",
+ *     ),
+ *   @OA\Response(
+ *        response="403",
+ *        description="Forbidden",
+ *     ),
+ * 		
+ * 		security={{ "apiAuth": {} }}
+ * )
+ */
 	public function create(ProductRequest $request){
 		Product::create([
 			'category_id'=>$request->category_id,
@@ -115,6 +192,91 @@ class ProductController extends Controller
 	/**
 	 * Edit product
 	 */
+
+/**
+ * @OA\Put(
+ *     path="/api/v1/product/{uuid}",
+ *   	 tags={"Products"},
+ *   	 summary="update product",
+ *   	 operationId="update-product",
+ *     @OA\Parameter(
+*   		   name="uuid",
+*   		   in="path",
+*   		   required=true,
+*   		   @OA\Schema(
+*   		        type="string"
+*   		   )
+*   		),
+*			@OA\Parameter(
+*   		   name="category_id",
+*   		   in="query",
+*   		   required=true,
+*   		   @OA\Schema(
+*   		        type="integer"
+*   		   )
+*   		),
+*			@OA\Parameter(
+*   		   name="title",
+*   		   in="query",
+*   		   required=true,
+*   		   @OA\Schema(
+*   		        type="string"
+*   		   )
+*   		),
+*				@OA\Parameter(
+*   		   name="price",
+*   		   in="query",
+*   		   required=true,
+*   		   @OA\Schema(
+*   		        type="string"
+*   		   )
+*   		),
+*				@OA\Parameter(
+*   		   name="description",
+*   		   in="query",
+*   		   required=true,
+*   		   @OA\Schema(
+*   		        type="string"
+*   		   )
+*   		),
+ *     @OA\RequestBody(
+ *        required = true,
+ *        description = "Update existung products",
+ *        @OA\JsonContent(
+ *             type="object",
+ *            @OA\Property(
+ *                property="metadata",
+ *                type="array",
+ *                example={
+ *										"brand": "string",
+ *										"image": "string"
+ *									},
+ *                @OA\Items(
+ *                      
+ *                ),
+ *             ),
+ * 
+ *        ),
+ * 			
+ *     ),
+ *
+ *
+ *     @OA\Response(
+ *        response="200",
+ *        description="Successful response",
+ *     ),
+ * 		@OA\Response(
+ *        response="422",
+ *        description="Unprocessable Entity",
+ *     ),
+ *   @OA\Response(
+ *        response="403",
+ *        description="Forbidden",
+ *     ),
+ * 		
+ * 		security={{ "apiAuth": {} }}
+ * )
+ */
 	public function edit(ProductRequest $request, $uuid){
 		$product = Product::where('uuid', $uuid)->first();
 
@@ -122,7 +284,7 @@ class ProductController extends Controller
 			return $this->errorResponse('Product not found', 404);
 		}
 		$product->update([
-			'category_uuid'=>$request->category_uuid,
+			'category_id'=>$request->category_id,
 			'title'=>$request->title,
 			'price'=>$request->price,
 			'description'=>$request->description,

@@ -577,33 +577,59 @@
                 ],
                 "summary": "Create Order",
                 "operationId": "create-order",
-                "parameters": [
-                    {
-                        "name": "order_status_uuid",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "payment_uuid",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
+                "requestBody": {
+                    "description": "Create a new order",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "products": {
+                                        "type": "array",
+                                        "items": {},
+                                        "example": [
+                                            {
+                                                "id": "integer",
+                                                "quantity": 0
+                                            },
+                                            {
+                                                "id": "integer",
+                                                "quantity": 0
+                                            }
+                                        ]
+                                    },
+                                    "address": {
+                                        "type": "array",
+                                        "items": {},
+                                        "example": {
+                                            "billing": "string",
+                                            "shipping": "string"
+                                        }
+                                    },
+                                    "order_status_id": {
+                                        "type": "integer"
+                                    },
+                                    "payment_id": {
+                                        "type": "integer"
+                                    },
+                                    "amount": {
+                                        "type": "string"
+                                    },
+                                    "user_id": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
                         }
                     }
-                ],
+                },
                 "responses": {
                     "200": {
-                        "description": "Successful operation"
+                        "description": "Successful response"
                     },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "400": {
-                        "description": "Bad Request"
+                    "422": {
+                        "description": "Unprocessable Entity"
                     },
                     "403": {
                         "description": "Forbidden"
@@ -653,12 +679,12 @@
                     }
                 ]
             },
-            "delete": {
+            "put": {
                 "tags": [
                     "Orders"
                 ],
-                "summary": "Delete Order",
-                "operationId": "deleteOrder",
+                "summary": "Update Order",
+                "operationId": "update-order",
                 "parameters": [
                     {
                         "name": "uuid",
@@ -669,15 +695,59 @@
                         }
                     }
                 ],
+                "requestBody": {
+                    "description": "Create a new order",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "products": {
+                                        "type": "array",
+                                        "items": {},
+                                        "example": [
+                                            {
+                                                "id": "integer",
+                                                "quantity": 0
+                                            },
+                                            {
+                                                "id": "integer",
+                                                "quantity": 0
+                                            }
+                                        ]
+                                    },
+                                    "address": {
+                                        "type": "array",
+                                        "items": {},
+                                        "example": {
+                                            "billing": "string",
+                                            "shipping": "string"
+                                        }
+                                    },
+                                    "order_status_id": {
+                                        "type": "integer"
+                                    },
+                                    "payment_id": {
+                                        "type": "integer"
+                                    },
+                                    "amount": {
+                                        "type": "string"
+                                    },
+                                    "user_id": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
-                        "description": "Successful operation"
+                        "description": "Successful response"
                     },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "400": {
-                        "description": "Bad Request"
+                    "422": {
+                        "description": "Unprocessable Entity"
                     },
                     "403": {
                         "description": "Forbidden"
@@ -688,27 +758,17 @@
                         "apiAuth": []
                     }
                 ]
-            }
-        },
-        "/api/v1/order": {
-            "put": {
+            },
+            "delete": {
                 "tags": [
                     "Orders"
                 ],
-                "summary": "Update Order",
-                "operationId": "update-order",
+                "summary": "Delete Order",
+                "operationId": "deleteOrder",
                 "parameters": [
                     {
-                        "name": "order_status_uuid",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "payment_uuid",
-                        "in": "query",
+                        "name": "uuid",
+                        "in": "path",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -1013,12 +1073,353 @@
                     }
                 ]
             },
+            "put": {
+                "tags": [
+                    "Payments"
+                ],
+                "summary": "Update Payment",
+                "operationId": "update-payment",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Update existing payment",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "details": {
+                                        "type": "array",
+                                        "items": {},
+                                        "example": {
+                                            "holder_name": "string",
+                                            "number": "string",
+                                            "ccv": "integer",
+                                            "expire_date": "string"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            },
             "delete": {
                 "tags": [
                     "Payments"
                 ],
                 "summary": "Delete payment",
                 "operationId": "deletePayment",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/payment/create": {
+            "post": {
+                "tags": [
+                    "Payments"
+                ],
+                "summary": "create Payment",
+                "operationId": "create-payment",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "create a new payment for user",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "details": {
+                                        "type": "array",
+                                        "items": {},
+                                        "example": {
+                                            "holder_name": "string",
+                                            "number": "string",
+                                            "ccv": "integer",
+                                            "expire_date": "string"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/post/create": {
+            "post": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "create Post",
+                "operationId": "create-post",
+                "parameters": [
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "content",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "create a new post",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "metadata": {
+                                        "type": "array",
+                                        "items": {},
+                                        "example": {
+                                            "author": "string",
+                                            "image": "string"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/post/{uuid}": {
+            "get": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Get post",
+                "operationId": "getPost",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "update Post",
+                "operationId": "update-post",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "content",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Update existung post",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "metadata": {
+                                        "type": "array",
+                                        "items": {},
+                                        "example": {
+                                            "author": "string",
+                                            "image": "string"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Get post",
+                "operationId": "getPost",
                 "parameters": [
                     {
                         "name": "uuid",
@@ -1071,75 +1472,6 @@
                         "description": "Forbidden"
                     }
                 }
-            }
-        },
-        "/api/v1/post/{uuid}": {
-            "get": {
-                "tags": [
-                    "Posts"
-                ],
-                "summary": "Get post",
-                "operationId": "getPost",
-                "parameters": [
-                    {
-                        "name": "uuid",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation"
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "Posts"
-                ],
-                "summary": "Get post",
-                "operationId": "getPost",
-                "parameters": [
-                    {
-                        "name": "uuid",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation"
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    }
-                },
-                "security": [
-                    {
-                        "apiAuth": []
-                    }
-                ]
             }
         },
         "/api/v1/products": {
@@ -1197,6 +1529,92 @@
                     }
                 }
             },
+            "put": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "update product",
+                "operationId": "update-product",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "category_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "price",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Update existung products",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "metadata": {
+                                        "type": "array",
+                                        "items": {},
+                                        "example": {
+                                            "brand": "string",
+                                            "image": "string"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            },
             "delete": {
                 "tags": [
                     "Products"
@@ -1222,6 +1640,86 @@
                     },
                     "400": {
                         "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/product/create": {
+            "post": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "create product",
+                "operationId": "create-product",
+                "parameters": [
+                    {
+                        "name": "category_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "price",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "create new product",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "metadata": {
+                                        "type": "array",
+                                        "items": {},
+                                        "example": {
+                                            "brand": "string",
+                                            "image": "string"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
                     },
                     "403": {
                         "description": "Forbidden"
@@ -1289,6 +1787,77 @@
                     }
                 }
             },
+            "put": {
+                "tags": [
+                    "Promotions"
+                ],
+                "summary": "update promotion",
+                "operationId": "update-promotion",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "content",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "update existing promotion",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "metadata": {
+                                        "type": "array",
+                                        "items": {},
+                                        "example": {
+                                            "valid_from": "YYYY-MM-DD",
+                                            "valid_to": "YYYY-MM-DD",
+                                            "image": "string"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            },
             "delete": {
                 "tags": [
                     "Promotions"
@@ -1314,6 +1883,71 @@
                     },
                     "400": {
                         "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/promotion/create": {
+            "post": {
+                "tags": [
+                    "Promotions"
+                ],
+                "summary": "create promotion",
+                "operationId": "create-promotion",
+                "parameters": [
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "content",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "create new promotion",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "metadata": {
+                                        "type": "array",
+                                        "items": {},
+                                        "example": {
+                                            "valid_from": "YYYY-MM-DD",
+                                            "valid_to": "YYYY-MM-DD",
+                                            "image": "string"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
                     },
                     "403": {
                         "description": "Forbidden"

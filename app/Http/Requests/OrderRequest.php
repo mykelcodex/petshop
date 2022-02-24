@@ -32,7 +32,7 @@ class OrderRequest extends FormRequest
 					'address.shipping'=>'required',
 					'amount'=> 'required',
 					'user_id'=>"required | exists:users,id",
-					'products.*.product'=>'required | exists:products,uuid',
+					'products.*.id'=>'required | exists:products,id',
 					'products.*.quantity'=>'required | integer'
         ];
     }

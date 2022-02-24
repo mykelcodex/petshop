@@ -20,6 +20,67 @@ class PostController extends Controller
 	/**
 	 * Create post
 	 */
+
+		 /**
+ * @OA\Post(
+ *     path="/api/v1/post/create",
+ *   	 tags={"Posts"},
+ *   	 summary="create Post",
+ *   	 operationId="create-post",
+*			@OA\Parameter(
+*   		   name="title",
+*   		   in="query",
+*   		   required=true,
+*   		   @OA\Schema(
+*   		        type="string"
+*   		   )
+*   		),
+*				@OA\Parameter(
+*   		   name="content",
+*   		   in="query",
+*   		   required=true,
+*   		   @OA\Schema(
+*   		        type="string"
+*   		   )
+*   		),
+ *     @OA\RequestBody(
+ *        required = true,
+ *        description = "create a new post",
+ *        @OA\JsonContent(
+ *             type="object",
+ *            @OA\Property(
+ *                property="metadata",
+ *                type="array",
+ *                example={
+ *										"author": "string",
+ *										"image": "string"
+ *									},
+ *                @OA\Items(
+ *                      
+ *                ),
+ *             ),
+ * 
+ *        ),
+ * 			
+ *     ),
+ *
+ *
+ *     @OA\Response(
+ *        response="200",
+ *        description="Successful response",
+ *     ),
+ * 		@OA\Response(
+ *        response="422",
+ *        description="Unprocessable Entity",
+ *     ),
+ *   @OA\Response(
+ *        response="403",
+ *        description="Forbidden",
+ *     ),
+ * 		
+ * 		security={{ "apiAuth": {} }}
+ * )
+ */
 	public function create(PostRequest $request){
 		Post::create([
 			'title'=>$request->title,
@@ -34,6 +95,74 @@ class PostController extends Controller
 	/**
 	 * Update post
 	 */
+			 /**
+ * @OA\Put(
+ *     path="/api/v1/post/{uuid}",
+ *   	 tags={"Posts"},
+ *   	 summary="update Post",
+ *   	 operationId="update-post",
+ *     @OA\Parameter(
+*   		   name="uuid",
+*   		   in="path",
+*   		   required=true,
+*   		   @OA\Schema(
+*   		        type="string"
+*   		   )
+*   		),
+*			@OA\Parameter(
+*   		   name="title",
+*   		   in="query",
+*   		   required=true,
+*   		   @OA\Schema(
+*   		        type="string"
+*   		   )
+*   		),
+*				@OA\Parameter(
+*   		   name="content",
+*   		   in="query",
+*   		   required=true,
+*   		   @OA\Schema(
+*   		        type="string"
+*   		   )
+*   		),
+ *     @OA\RequestBody(
+ *        required = true,
+ *        description = "Update existung post",
+ *        @OA\JsonContent(
+ *             type="object",
+ *            @OA\Property(
+ *                property="metadata",
+ *                type="array",
+ *                example={
+ *										"author": "string",
+ *										"image": "string"
+ *									},
+ *                @OA\Items(
+ *                      
+ *                ),
+ *             ),
+ * 
+ *        ),
+ * 			
+ *     ),
+ *
+ *
+ *     @OA\Response(
+ *        response="200",
+ *        description="Successful response",
+ *     ),
+ * 		@OA\Response(
+ *        response="422",
+ *        description="Unprocessable Entity",
+ *     ),
+ *   @OA\Response(
+ *        response="403",
+ *        description="Forbidden",
+ *     ),
+ * 		
+ * 		security={{ "apiAuth": {} }}
+ * )
+ */
 	public function edit(PostRequest $request, $uuid){
 
 		$post = Post::where('uuid', $uuid)->first();
